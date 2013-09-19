@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chatserver</title>
+	<script type="text/javascript" src="http://localhost:8080/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		var socket = io.connect('http://localhost:8080');
+		socket.on('newMessage', function(data) {
+			document.getElementById('log').innerHTML += '<p>' + data + '</p>';
+		});
+	</script>
+</head>
+<body>
+<h1>A Chatserver</h1>
+<div id="log"></div>
+<input type="text" id="input"/>
+<button id="send">Send</button>
+
+</body>
+<script>
+	document.getElementById('send').onclick = function() {
+		socket.emit('message', document.getElementById('input').value);
+		document.getElementById('input').value = '';
+	}
+</script>
+</html>
